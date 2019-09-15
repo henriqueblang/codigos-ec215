@@ -103,7 +103,7 @@ imwrite(image12Or, '../images/scene12_binary_or.jpg');
 
 % XOR
 
-image12Xor = bitor(image1Bin, image2Bin);
+image12Xor = bitxor(image1Bin, image2Bin);
 
 figure(10);
 imshow(image12Xor);

@@ -65,7 +65,7 @@ imwrite(image12Or, '../images/space12_or.jpg');
 
 % XOR
 
-image12Xor = bitor(image1, image2);
+image12Xor = bitxor(image1, image2);
 
 figure(10);
 imshow(image12Xor);
