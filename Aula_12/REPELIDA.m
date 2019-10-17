@@ -7,7 +7,6 @@ function decompressed = REPELIDA(encoded)
         column = 1;
         rowAnalyzed = encoded{i};
         width = size(rowAnalyzed, 2);
-        total = 0;
         
         for j = 1:4:width 
             sequence = rowAnalyzed(j);  
