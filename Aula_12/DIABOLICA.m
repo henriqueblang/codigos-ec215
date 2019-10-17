@@ -1,4 +1,5 @@
 function compressed = DIABOLICA(inputImage, blocks)
+    % Deterministic Iterative Averaged Block-Oriented Lossy Image Compression Algorithm
     
     [height width channels] = size(inputImage);
 
