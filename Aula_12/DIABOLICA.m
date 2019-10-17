@@ -33,8 +33,9 @@ function compressed = DIABOLICA(inputImage, blocks)
             % Convert mean pixel value to LAB color space
             blockMeanLab = rgb2lab(blockMeanRed, blockMeanGreen, blockMeanBlue);
 
-            % Get coordinates of highest color distance pixel from mean pixel
-            [x y] = highestColorDistance(workingBlockLab, blockMeanLab);
+            % Get coordinates of lowest color distance pixel from mean pixel
+            % ie, the pixel with most similarity with the mean pixel
+            [x y] = lowestColorDistance(workingBlockLab, blockMeanLab);
            
             % Spread pixel color to block
             resultImage(i:endBlockVertical, j:endBlockHorizontal, :) = 1;
@@ -45,9 +46,7 @@ function compressed = DIABOLICA(inputImage, blocks)
         end
     end
 
-    resultImage = uint8(resultImage);
-    
-    compressed = rle(resultImage);
+    compressed = rle(double(resultImage));
 
 end
 
@@ -56,23 +55,23 @@ function vec = mat2vec(mat)
     vec = mat(:)';
 end
 
-function [x y] = highestColorDistance(array, cmp)
+function [x y] = lowestColorDistance(array, cmp)
 
     height = size(array, 1);
     width = size(array, 2);
     
     x = -1;
     y = -1;
-    highestDistance = -1;
+    lowestDistance = realmax;
     
     for i = 1:height
         for j = 1:width
             colorDistance = sqrt((array(i, j, 1) - cmp(1)) ^ 2 + (array(i, j, 2) - cmp(2)) ^ 2 + (array(i, j, 3) - cmp(3)) ^ 2);
             
-            if colorDistance > highestDistance
+            if colorDistance < lowestDistance
                 x = j;
                 y = i;
-                highestDistance = colorDistance;
+                lowestDistance = colorDistance;
             end
         end
     end
